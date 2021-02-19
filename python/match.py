@@ -14,23 +14,35 @@ def isMatch(n, m):
 def findBal(s):
     stk = Stack1.Stack()
     bal = True
-    index = 0
-    while index < len(s) and bal:
-        ch = s[index]
-        if ch in "{[(":
-            stk.push(ch)
+    for i in s:
+        if i in "({[":
+            stk.push(i)
+            continue
+        if(stk.isEmpty()):
+            bal = False
         else:
-            if stk.isEmpty():
-                bal = False
-            else:
-                top = stk.pop()
-                if not isMatch(top, ch):
+            if i == ')':
+                x = stk.pop()
+                if(x == '{' or x=='['):
                     bal = False
-        index += 1
-    if (stk.isEmpty() and bal):
+                    break
+            elif i == ']':
+                x = stk.pop()
+                if(x == '(' or x == '{'):
+                    bal = False
+                    break
+            elif i == '}':
+                x = stk.pop()
+                if(x == '(' or x == '['):
+                    bal = True
+                    break
+            else:
+                continue
+    if(bal and stk.isEmpty()):
         print("YES")
     else:
         print("NO")
+
 
 expr = [
     "({})",

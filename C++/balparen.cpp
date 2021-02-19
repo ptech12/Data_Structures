@@ -2,82 +2,76 @@
 #include <string.h>
 #include "header/stack.h"
 using namespace std;
-#define qMax  3
-// char q[qMax] = {
-//    { "{()}"},
-//     {"{([])}"},
-//     {"{{(]}}"}
-// };
-bool match(char let)
-{
-    if (let =='{' || let == '(' || let == '[')
-        return true;
-    else
-        return false;
-}
-bool isMatch(char m1, char m2)
-{
-    if (m1 ==  '{' && m2 == '}')
-        return true;
-    if (m1 ==  '(' && m2 == ')')
-        return true;
-    if (m1 ==  '[' && m2 == ']')
-        return true;
-    else
-        return false;
-}
-void start(char *str)
-{
-    Stack<char> st;
-    bool balanced = true;
-    int index = 0;
-    for(;index <= strlen(str) && balanced; ++index)
-    {
-        char letter = str[index];
-        if (match(letter))
-            st.push(letter);
-        else{
-            cout << letter << ": Letter not match\n---";
-            if (st.isEmpty() == 1)
-            {
-                balanced = false;
-                // cout << "Making balanced false\nstack is empty\n";
-            }
-            else
-            {
-                cout << "Stack is not empty\n";
-                int top = st.pop();
-                if(isMatch(top, letter))
-                    balanced = false;
-            }
-        }
-        // index++;
-    }
-    if (st.isEmpty() == 1&& balanced)
-        cout << "YES\n";
-    else
-        cout << "NO\n";
-}
 
+bool isBalancedExp(string exp) {
+   // initialization of Stack
+   Stack<char> stk(100);
+   char x;
+   // looping through the expression string
+   for (int i=0; i< exp.length(); i++) {
+      // if current character is any opening braces, push it into stack
+      if (exp[i]=='('||exp[i]=='['||exp[i]=='{') {
+         stk.push(exp[i]);
+         continue;
+      }
+      // check if stack is Empty
+      if (stk.isEmpty())
+         return false;
+      // Using Switch of current Character
+      switch (exp[i]) {
+         // if current character is closing braces
+      case ')':
+         // pick out top character of stack
+         x = stk.peek();
+         stk.pop();
+         // if top character is opposite opening of current character
+         if (x=='{' || x=='[')
+            return false;
+         break;
+         // if current character is closing braces
+      case '}':
+         // pick out top character of stack
+         x = stk.peek();
+         stk.pop();
+         // if top character is opposite opening of current character
+         if (x=='(' || x=='[')
+            return false;
+         break;
+         // if current character is closing braces
+      case ']':
+         // pick out top character of stack
+         x = stk.peek();
+         stk.pop();
+         // if top character is opposite opening of current character
+         if (x =='(' || x == '{')
+            return false;
+         break;
+      }
+   }
+   // finally check stack is empty or not
+   return (stk.isEmpty());
+}
+// just utility purpose
 void print(char *str)
 {
     int i =0;
     while (i <= strlen(str))
     {
         cout << str[i];
-    }
-    
+        ++i;
+    } 
     
 }
 
 int main(int argc, char const *argv[])
 {
-    // for(int i=0; i < qMax; ++i)
-    // {
-    //     start(q[i]);
-    // }
-    char str[100]= {"{()}"};
-    start(str);
-    // print(str);
+   // expression
+    string exp = "{([])}";
+    if(isBalancedExp(exp))
+      // if stack is empty, then parenthesis have proper opening and closing
+      cout << "YES" << endl;
+   else
+      // not empty means, have no proper opening and closing
+      cout << "NO" << endl;
     return 0;
 }

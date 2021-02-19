@@ -16,17 +16,3 @@ for i in range(n):
 
 for i in res:
     print(i)
-    # ino = input().split()
-    # # print(ino)
-    # if len(ino) >= 2:
-    #     choice, x = int(ino[0]), int(ino[1])
-    # else:
-    #     choice = int(ino[0])
-    # if choice == 1:
-    #     x = int(input())
-    #     s.push(x)
-    # elif choice == 2:
-    #     print(s.pop())
-        
-    # elif choice == 3:
-    #     s.stack_()
