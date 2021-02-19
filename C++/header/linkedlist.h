@@ -1,9 +1,5 @@
 /* C++ Header file for Linked List */
-
-
-
-
-
+#include <ostream>
 
 template <class T>
 class LinkedList
@@ -32,6 +28,7 @@ public:
 template <class T>
 LinkedList<T>::LinkedList()
 {
+    std::cout << "Node created and attached to head successfully" << endl;
     head = Node();
 }
 template <class T>
