@@ -1,6 +1,7 @@
 /* C++ Header file for Linked List */
 #include <ostream>
 
+
 template <class T>
 class LinkedList
 {
@@ -11,51 +12,70 @@ private:
         private:
             T data;
             Node *next;
-        public:
-            friend class LinkedList; 
     };
     Node *head = NULL; 
-    Node *list[10] = NULL;
+    
 public:
     LinkedList();
     friend class Node; 
 public:
     T createMemory();   
-    bool insertFirst(T data);
+    bool insert_last(T data);
+    void print_list();
+private:
+    bool insertLast(Node **head, T data);
 };
 // Constructor
 template <class T>
 LinkedList<T>::LinkedList()
 {
-    std::cout << "Node created and attached to head successfully" << std::endl;
-    head = new Node();
-    list = new Node();
+    // std::cout << "Node created and attached to head successfully" << std::endl;
 }
+// Public Functions
 template <class T>
 T LinkedList<T>::createMemory()
 {
     return new Node();
 }
 template <class T>
-bool LinkedList<T>::insertFirst(T data)
+bool LinkedList<T>::insert_last(T data)
 {
+    if(insertLast(&head, data))
+        return true;
+    else
+        return false;
+}
+// Print list
+template <class T>
+void LinkedList<T>::print_list()
+{
+    Node *temp = head;
+    while (temp!= NULL)
+    {
+        std::cout << temp->data << "->" ;
+        temp = temp->next;
+    }
+    
+}
 
-    if (head == NULL)
+
+
+
+
+
+
+
+
+// Private Functions
+// insert Functions
+template <class T>
+bool LinkedList<T>::insertLast(Node **head, T data)
+{
+    Node *temp = head;
+    while(temp != NULL)
     {
-        return false;  
-    }
-    else if(head != NULL)
-    {
-        T *temp = createMemory();
-        temp = head;
-        while (temp != NULL)
-        {
-            temp = temp->next;
-        }
-        list->next = temp;
-                
-    }
-    else{
-        head = data;
-    }   
+        temp = temp->next;
+    } 
+    temp->data = data;
+    temp->next = NULL;    
 }
