@@ -23,7 +23,7 @@ public:
     bool insert_last(T data);
     void print_list();
 private:
-    bool insertLast(Node **head, T data);
+    // bool insertLast(Node **head, T data);
 };
 // Constructor
 template <class T>
@@ -40,10 +40,13 @@ T LinkedList<T>::createMemory()
 template <class T>
 bool LinkedList<T>::insert_last(T data)
 {
-    if(insertLast(&head, data))
-        return true;
-    else
-        return false;
+    Node *temp = head;
+    while(temp != NULL)
+    {
+        temp = temp->next;
+    } 
+    temp->data = data;
+    temp->next = NULL;    
 }
 // Print list
 template <class T>
@@ -68,14 +71,14 @@ void LinkedList<T>::print_list()
 
 // Private Functions
 // insert Functions
-template <class T>
-bool LinkedList<T>::insertLast(Node **head, T data)
-{
-    Node *temp = head;
-    while(temp != NULL)
-    {
-        temp = temp->next;
-    } 
-    temp->data = data;
-    temp->next = NULL;    
-}
+// template <class T>
+// bool LinkedList<T>::insertLast(Node **head, T data)
+// {
+//     Node *temp = head;
+//     while(temp != NULL)
+//     {
+//         temp = temp->next;
+//     } 
+//     temp->data = data;
+//     temp->next = NULL;    
+// }
