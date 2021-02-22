@@ -9,11 +9,11 @@ private:
     int max; 
     class Node
     {
-        private:
+        public:
             T data;
             Node *next;
     };
-    Node *head = NULL; 
+    Node *head = new Node; 
     
 public:
     LinkedList();
@@ -40,13 +40,25 @@ T LinkedList<T>::createMemory()
 template <class T>
 bool LinkedList<T>::insert_last(T data)
 {
-    Node *temp = head;
-    while(temp != NULL)
+
+    if(head == NULL)
     {
-        temp = temp->next;
-    } 
-    temp->data = data;
-    temp->next = NULL;    
+        head->data = data;
+        head->next = NULL;
+        return true;
+    }
+    else
+    {
+        Node *temp = new Node;
+        while(temp != NULL)
+        {
+            temp = temp->next;
+        } 
+        temp->data = data;
+        temp->next = NULL;    
+        return true;
+    }
+    return false;
 }
 // Print list
 template <class T>
